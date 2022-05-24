@@ -20,6 +20,10 @@ jobs:
           command: |
             echo << pipeline.id>> 
             echo END!
+      - run:
+          name: "print env var"
+          command: |
+            echo ${NAME}
 workflows:
   welcome:
     jobs:
