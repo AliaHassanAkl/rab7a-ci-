@@ -1,5 +1,6 @@
 version: 2.1
-
+orbs:
+  wlecome: circleci/welcom-orb@0.4.1
 jobs:
   print_hello:
     docker:
@@ -27,6 +28,7 @@ jobs:
 workflows:
   welcome:
     jobs:
+      - welcome/run
       - print_hello
       - print_world:
           requires:
