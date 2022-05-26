@@ -25,6 +25,20 @@ jobs:
           name: "print env var"
           command: |
             echo ${NAME}
+  save_hello_world_output:
+    <<: *defults
+    steps:
+      - run: echo "hello world !" > ~/output.txt
+      - persist_to_workspace:
+          root: ~/
+          paths:
+            - output.txt
+  print_output:
+    <<: *defults
+    steps:
+      - attach_workspace:
+          at: ~/ 
+      - run: cat ~/output.txt
 workflows:
   welcome:
     jobs:
@@ -37,3 +51,6 @@ workflows:
           requires:
             - print_hello
             - print_world 
+      - print_output:
+          requires:
+            - save_hello_world_output
